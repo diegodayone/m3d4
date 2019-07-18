@@ -175,7 +175,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <img src="" alt="my image">
+          <img class="img-fluid" src="" alt="my image">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -229,9 +229,9 @@
             //get a reference to where we want to put the images
             var myRow = document.querySelector(".album .container .row")
             myRow.innerHTML = ''; //clear it up!
-            for (var i = 0; i < json.images.length; i++){ //for each image
-              let actualImage = json.images[i];
-
+            //for (var i = 0; i < json.images.length; i++){ //for each image
+               //let actualImage = json.images[i];
+            json.images.forEach((actualImage)=>{
               var div = document.createElement("div");
               div.classList.add("col-md-4");
               div.innerHTML += `
@@ -256,10 +256,17 @@
 
               myRow.appendChild(div);
 
-              div.querySelector(".btn").addEventListener("click", ()=>{
-                console.log(actualImage);
+              div.querySelector(".btn").addEventListener("click", () => {
+                //Select the modal
+                var modal = document.querySelector("#imageModal");
+                //select the image inside the modal
+                var img = modal.querySelector("img"); //modal.getElementsByTagName("img")[0];
+                //set the image source
+                img.setAttribute("src", actualImage.url);
+                //show the modal!
+                $("#imageModal").modal("show");
               });
-            }
+            })
           });
           // .then(function(response) {
           //     return response.json();
